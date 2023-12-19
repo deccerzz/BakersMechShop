@@ -6,7 +6,6 @@
     <title>BAKERS MECH SHOP PRICE LIST</title>
 </head>
 <body>
-
 <h2>BAKERS MECH SHOP PRICE LIST</h2>
 <style>
         body {
@@ -18,25 +17,27 @@
         }
 
         #priceForm {
-    display: flex;
-    justify-content: space-between; 
-    margin: 2; 
-}
+            display: flex;
+            justify-content: space-between;
+            margin: 2;
+        }
 
-        #mechanicColumn, #cosmeticColumn {
+        #mechanicColumn, #cosmeticColumn, #partsColumn {
             flex: 1;
         }
     </style>
 <form id="priceForm">
 <div id="mechanicColumn">
     <label> <b>BASIC MECHANIC</b></label><br>
-    <label><input type="checkbox" name="spray1"> Respray 1 - £350</label><br>
-    <label><input type="checkbox" name="spray2"> Respray 2 - £350</label><br>
-    <label><input type="checkbox" name="spray3"> Respray 3 - £350</label><br>
-    <label><input type="checkbox" name="spray4"> Respray 4 - £350</label><br>
-    <label><input type="checkbox" name="spray5"> Respray 5 - £350</label><br>
-    <label><input type="checkbox" name="spray6"> Respray 6 - £350</label><br>
-    <label><input type="checkbox" name="spray7"> Respray 7 - £350</label><br>
+    <label><input type="checkbox" name="spray1"> Respray Primary - £350</label>
+<br>
+	
+    <label><input type="checkbox" name="spray2"> Respray Secondary - £350</label><br>
+    <label><input type="checkbox" name="spray3"> Respray Pearlescent - £350</label><br>
+    <label><input type="checkbox" name="spray4"> Respray Wheels - £350</label><br>
+    <label><input type="checkbox" name="spray5"> Respray Interior - £350</label><br>
+    <label><input type="checkbox" name="spray6"> Respray Dashboard - £350</label><br>
+    <label><input type="checkbox" name="spray7"> Respray Other - £350</label><br>
     <label><input type="checkbox" name="tints"> Tints - £350</label><br>
     <label><input type="checkbox" name="neons"> Neons - £350</label><br>
     <label><input type="checkbox" name="tyre1"> New Tyre 1 - £70</label><br>
@@ -139,7 +140,10 @@
 <p>48 Hours: £<span id="48hourcash">0.00</span> <span id="48hourcashpercentage">0</span>%</p>
 <p>We Get: £<span id="wegetcash">0.00</span> <span id="wegetcashpercentage">0</span>%</p>
     </div>
-	
+	 <div id="partsColumn">
+    <label> <b>Parts To Fit</b> </label><br>
+	<ul id="selectedPartsList"></ul>
+        </div>
 <div id="mechanicColumn">
     </div>	
 <div id="mechanicColumn">
@@ -199,393 +203,180 @@ function calculateTotal() {
     var buy = 0;
     var sell = 0;
     var labour = 0;	
+	 var selectedParts = []; // Array to store selected parts
 
-    var checkboxes = document.getElementsByName("spray1"); // Change to the actual names of your checkboxes
-    if (checkboxes[0].checked) {
-        buy += 250;
-        sell += 350;
+// Define a function to handle checkboxes for a specific upgrade type
+function handleUpgradeCheckboxes(upgrades) {
+    for (const upgrade of upgrades) {
+        const checkboxes = document.getElementsByName(upgrade.name);
+        if (checkboxes[0].checked) {
+            buy += upgrade.buyPrice;
+            sell += upgrade.sellPrice;
+			                selectedParts.push(upgrade.name); // Add the selected part to the array
+
+
+        }
     }
+}
 
-    checkboxes = document.getElementsByName("spray2");
-    if (checkboxes[0].checked) {
-        buy += 250;
-        sell += 350;
-    }
+// Define an array of upgrades with name, buy price, and sell price
+const upgrades = [
+    { name: "spray1", buyPrice: 250, sellPrice: 350 },
+    { name: "spray2", buyPrice: 250, sellPrice: 350 },
+    { name: "spray3", buyPrice: 250, sellPrice: 350 },
+    { name: "spray4", buyPrice: 250, sellPrice: 350 },
+    { name: "spray5", buyPrice: 250, sellPrice: 350 },
+    { name: "spray6", buyPrice: 250, sellPrice: 350 },
+    { name: "spray7", buyPrice: 250, sellPrice: 350 },
+    { name: "tints", buyPrice: 250, sellPrice: 350 },
+    { name: "neons", buyPrice: 250, sellPrice: 350 },
+    { name: "tyre1", buyPrice: 50, sellPrice: 70 },
+    { name: "tyre2", buyPrice: 50, sellPrice: 70 },
+    { name: "tyre3", buyPrice: 50, sellPrice: 70 },
+    { name: "tyre4", buyPrice: 50, sellPrice: 70 },
+    { name: "axleparts", buyPrice: 50, sellPrice: 70 },
+    { name: "carbattery", buyPrice: 50, sellPrice: 70 },
+    { name: "sparkplugs", buyPrice: 50, sellPrice: 70 },
+    { name: "caroil", buyPrice: 50, sellPrice: 70 },
+    // Add more upgrades as needed
+    { name: "vehicle_hood", buyPrice: 500, sellPrice: 700 },
+    { name: "vehicle_hood2", buyPrice: 500, sellPrice: 700 },
+    { name: "vehicle_roof", buyPrice: 500, sellPrice: 700 },
+    { name: "vehicle_roof2", buyPrice: 500, sellPrice: 700 },
+    { name: "vehicle_spoiler", buyPrice: 500, sellPrice: 700 },
+    { name: "vehicle_front_bumper", buyPrice: 500, sellPrice: 700 },
+    { name: "vehicle_rear_bumper", buyPrice: 500, sellPrice: 700 },
+    { name: "vehicle_bumper", buyPrice: 500, sellPrice: 700 },
+    { name: "vehicle_skirt", buyPrice: 500, sellPrice: 700 },
+    { name: "vehicle_skirt2", buyPrice: 500, sellPrice: 700 },
+    { name: "vehicle_exhaust", buyPrice: 500, sellPrice: 700 },
+    { name: "seat_cosmetics", buyPrice: 500, sellPrice: 700 },
+    { name: "livery_roll", buyPrice: 500, sellPrice: 700 },
+    { name: "drift_smoke_tires", buyPrice: 500, sellPrice: 700 },
+    { name: "custom_vehicle_horn", buyPrice: 500, sellPrice: 700 },
+    { name: "internal_cosmetic", buyPrice: 500, sellPrice: 700 },
+    { name: "internal_cosmetic2", buyPrice: 500, sellPrice: 700 },
+    { name: "external_cosmetic", buyPrice: 500, sellPrice: 700 },
+    { name: "external_cosmetic2", buyPrice: 500, sellPrice: 700 },
+    { name: "customized_plate", buyPrice: 5000, sellPrice: 7000 },
+    { name: "customized_plate2", buyPrice: 5000, sellPrice: 7000 },
+    { name: "xenon_headlights", buyPrice: 500, sellPrice: 700 },
+    { name: "custom_wheel_rims", buyPrice: 2500, sellPrice: 3500 },
+    { name: "roll_cage", buyPrice: 1000, sellPrice: 1400 },
+    { name: "nos_colour_injector", buyPrice: 4000, sellPrice: 4800 },
+    { name: "performance_package_upgrade", buyPrice: 12500, sellPrice: 15000 },
+	{ name: "turbo", buyPrice: 2500, sellPrice: 3500 },
+	{ name: "tier1_engine", buyPrice: 1000, sellPrice: 1400 },
+    { name: "tier2_engine", buyPrice: 2500, sellPrice: 3500 },
+    { name: "tier3_engine", buyPrice: 3500, sellPrice: 4900 },
+    { name: "tier4_engine", buyPrice: 5000, sellPrice: 7000 },
+    { name: "tier5_engine", buyPrice: 6000, sellPrice: 8400 },
+    { name: "tier1_transmission", buyPrice: 1000, sellPrice: 1400 },
+    { name: "tier2_transmission", buyPrice: 2000, sellPrice: 2800 },
+    { name: "tier3_transmission", buyPrice: 3000, sellPrice: 4200 },
+    { name: "tier4_transmission", buyPrice: 4000, sellPrice: 5600 },
+    { name: "tier1_brakes", buyPrice: 1000, sellPrice: 1400 },
+    { name: "tier2_brakes", buyPrice: 1500, sellPrice: 2100 },
+    { name: "tier3_brakes", buyPrice: 2000, sellPrice: 2800 },
+    { name: "vehicle_armor", buyPrice: 1500, sellPrice: 2100 },
+    { name: "tier1_suspension", buyPrice: 500, sellPrice: 700 },
+    { name: "tier2_suspension", buyPrice: 600, sellPrice: 840 },
+    { name: "tier3_suspension", buyPrice: 700, sellPrice: 980 },
+    { name: "tier4_suspension", buyPrice: 800, sellPrice: 1120 },
+    { name: "tier5_suspension", buyPrice: 900, sellPrice: 1260 },
+    { name: "bulletproof_tires", buyPrice: 5000, sellPrice: 7000 },
+];
 
-    checkboxes = document.getElementsByName("spray3");
-    if (checkboxes[0].checked) {
-        buy += 250;
-        sell += 350;
-    }
+// Call the function with the array of upgrades
+handleUpgradeCheckboxes(upgrades);
+const displayNames = {
+    spray1: "Respray Primary",
+    spray2: "Respray Secondary",
+    spray3: "Respray Pearlescent",
+    spray4: "Respray Wheels",
+    spray5: "Respray Interior",
+    spray6: "Respray Dashboard",
+    spray7: "Respray Other",
+	tints: "Tints",
+    neons: "Neons",
+    tyre1: "Tyre 1",
+    tyre2: "Tyre 2",
+    tyre3: "Tyre 3",
+    tyre4: "Tyre 4",
+    axleparts: "Axle Parts",
+    carbattery: "Car Battery",
+    sparkplugs: "Spark Plugs",
+    caroil: "Car Oil",
+    vehicle_hood: "Vehicle Hood",
+    vehicle_hood2: "Vehicle Hood 2",
+    vehicle_roof: "Vehicle Roof",
+    vehicle_roof2: "Vehicle Roof 2",
+    vehicle_spoiler: "Vehicle Spoiler",
+    vehicle_front_bumper: "Vehicle Front Bumper",
+    vehicle_rear_bumper: "Vehicle Rear Bumper",
+    vehicle_bumper: "Vehicle Bumper",
+    vehicle_skirt: "Vehicle Skirt",
+    vehicle_skirt2: "Vehicle Skirt 2",
+    vehicle_exhaust: "Vehicle Exhaust",
+    seat_cosmetics: "Seat Cosmetics",
+    livery_roll: "Livery Roll",
+    drift_smoke_tires: "Drift Smoke Tires",
+    custom_vehicle_horn: "Custom Vehicle Horn",
+    internal_cosmetic: "Internal Cosmetic",
+    internal_cosmetic2: "Internal Cosmetic 2",
+    external_cosmetic: "External Cosmetic",
+    external_cosmetic2: "External Cosmetic 2",
+    customized_plate: "Customized Plate",
+    customized_plate2: "Customized Plate 2",
+    xenon_headlights: "Xenon Headlights",
+    custom_wheel_rims: "Custom Wheel Rims",
+    roll_cage: "Roll Cage",
+    nos_colour_injector: "NOS Colour Injector",
+    performance_package_upgrade: "Performance Package Upgrade",
+    turbo: "Turbo",
+    tier1_engine: "Tier 1 Engine",
+    tier2_engine: "Tier 2 Engine",
+    tier3_engine: "Tier 3 Engine",
+    tier4_engine: "Tier 4 Engine",
+    tier5_engine: "Tier 5 Engine",
+    tier1_transmission: "Tier 1 Transmission",
+    tier2_transmission: "Tier 2 Transmission",
+    tier3_transmission: "Tier 3 Transmission",
+    tier4_transmission: "Tier 4 Transmission",
+    tier1_brakes: "Tier 1 Brakes",
+    tier2_brakes: "Tier 2 Brakes",
+    tier3_brakes: "Tier 3 Brakes",
+    vehicle_armor: "Vehicle Armor",
+    tier1_suspension: "Tier 1 Suspension",
+    tier2_suspension: "Tier 2 Suspension",
+    tier3_suspension: "Tier 3 Suspension",
+    tier4_suspension: "Tier 4 Suspension",
+    tier5_suspension: "Tier 5 Suspension",
+    bulletproof_tires: "Bulletproof Tires",
+    // Add more mappings as needed
+};
 
-    checkboxes = document.getElementsByName("spray4");
-    if (checkboxes[0].checked) {
-        buy += 250;
-        sell += 350;
-    }
 
-    checkboxes = document.getElementsByName("spray5");
-    if (checkboxes[0].checked) {
-        buy += 250;
-        sell += 350;
-    }
+var selectedPartsList = document.getElementById("selectedPartsList");
+selectedPartsList.innerHTML = ""; // Clear previous list items
 
-    checkboxes = document.getElementsByName("spray6");
-    if (checkboxes[0].checked) {
-        buy += 250;
-        sell += 350;
-    }
+for (const part of selectedParts) {
+    var displayName = displayNames[part] || part; // Use display name if available, otherwise use the original name
+    var listItem = document.createElement("li");
+    listItem.textContent = displayName;
+    selectedPartsList.appendChild(listItem);
+}
 
-    checkboxes = document.getElementsByName("spray7");
-    if (checkboxes[0].checked) {
-        buy += 250;
-        sell += 350;
-    }
-
-    checkboxes = document.getElementsByName("tints");
-    if (checkboxes[0].checked) {
-        buy += 250;
-        sell += 350;
-    }
-
-    checkboxes = document.getElementsByName("neons");
-    if (checkboxes[0].checked) {
-        buy += 250;
-        sell += 350;
-    }
-
-    checkboxes = document.getElementsByName("tyre1");
-    if (checkboxes[0].checked) {
-        buy += 50;
-        sell += 70;
-    }
-
-    checkboxes = document.getElementsByName("tyre2");
-    if (checkboxes[0].checked) {
-        buy += 50;
-        sell += 70;   
-    }
-
-    checkboxes = document.getElementsByName("tyre3");
-    if (checkboxes[0].checked) {
-        buy += 50;
-        sell += 70;
-    }
-
-    checkboxes = document.getElementsByName("tyre4");
-    if (checkboxes[0].checked) {
-        buy += 50;
-        sell += 70;
-    }
-
-    checkboxes = document.getElementsByName("axleparts");
-    if (checkboxes[0].checked) {
-        buy += 50;
-        sell += 70;
-    }
-
-    checkboxes = document.getElementsByName("carbattery");
-    if (checkboxes[0].checked) {
-        buy += 50;
-        sell += 70;
-    }
-
-    checkboxes = document.getElementsByName("sparkplugs");
-    if (checkboxes[0].checked) {
-        buy += 50;
-        sell += 70;
-    }
-
-    checkboxes = document.getElementsByName("caroil");
-    if (checkboxes[0].checked) {
-        buy += 50;
-        sell += 70;
-    }
-	
-	var turboCheckbox = document.getElementsByName("turbo");
-	if (turboCheckbox[0].checked) {
-		buy += 2500;
-		sell += 3500;
-	}
-
-	var tier1EngineCheckbox = document.getElementsByName("tier1_engine");
-	if (tier1EngineCheckbox[0].checked) {
-		buy += 1000;
-		sell += 1400;
-	}
-
-	var tier2EngineCheckbox = document.getElementsByName("tier2_engine");
-	if (tier2EngineCheckbox[0].checked) {
-		buy += 2500;
-		sell += 3500;
-	}
-
-	var tier3EngineCheckbox = document.getElementsByName("tier3_engine");
-	if (tier3EngineCheckbox[0].checked) {
-		buy += 3500;
-		sell += 4900;
-	}
-
-	var tier4EngineCheckbox = document.getElementsByName("tier4_engine");
-	if (tier4EngineCheckbox[0].checked) {
-		buy += 5000;
-		sell += 7000;
-	}
-
-	var tier5EngineCheckbox = document.getElementsByName("tier5_engine");
-	if (tier5EngineCheckbox[0].checked) {
-		buy += 6000;
-		sell += 8400;
-	}
-
-	var tier1TransmissionCheckbox = document.getElementsByName("tier1_transmission");
-	if (tier1TransmissionCheckbox[0].checked) {
-		buy += 1000;
-		sell += 1400;
-	}
-
-	var tier2TransmissionCheckbox = document.getElementsByName("tier2_transmission");
-	if (tier2TransmissionCheckbox[0].checked) {
-		buy += 2000;
-		sell += 2800;
-	}
-
-	var tier3TransmissionCheckbox = document.getElementsByName("tier3_transmission");
-	if (tier3TransmissionCheckbox[0].checked) {
-		buy += 3000;
-		sell += 4200;
-	}
-
-	var tier4TransmissionCheckbox = document.getElementsByName("tier4_transmission");
-	if (tier4TransmissionCheckbox[0].checked) {
-		buy += 4000;
-		sell += 5600;
-	}
-
-	var tier1BrakesCheckbox = document.getElementsByName("tier1_brakes");
-	if (tier1BrakesCheckbox[0].checked) {
-		buy += 1000;
-		sell += 1400;
-	}
-
-	var tier2BrakesCheckbox = document.getElementsByName("tier2_brakes");
-	if (tier2BrakesCheckbox[0].checked) {
-		buy += 1500;
-		sell += 2100;
-	}
-
-	var tier3BrakesCheckbox = document.getElementsByName("tier3_brakes");
-	if (tier3BrakesCheckbox[0].checked) {
-		buy += 2000;
-		sell += 2800;
-	}
-	
-	var vehicleArmorCheckbox = document.getElementsByName("vehicle_armor");
-	if (vehicleArmorCheckbox[0].checked) {
-		buy += 1500;
-		sell += 2100;
-	}
-
-	var tier1SuspensionCheckbox = document.getElementsByName("tier1_suspension");
-	if (tier1SuspensionCheckbox[0].checked) {
-		buy += 500;
-		sell += 700;
-	}
-
-	var tier2SuspensionCheckbox = document.getElementsByName("tier2_suspension");
-	if (tier2SuspensionCheckbox[0].checked) {
-		buy += 600;
-		sell += 840;
-	}
-
-	var tier3SuspensionCheckbox = document.getElementsByName("tier3_suspension");
-	if (tier3SuspensionCheckbox[0].checked) {
-		buy += 700;
-		sell += 980;
-	}
-
-	var tier4SuspensionCheckbox = document.getElementsByName("tier4_suspension");
-	if (tier4SuspensionCheckbox[0].checked) {
-		buy += 800;
-		sell += 1120;
-	}
-
-	var tier5SuspensionCheckbox = document.getElementsByName("tier5_suspension");
-	if (tier5SuspensionCheckbox[0].checked) {
-		buy += 900;
-		sell += 1260;
-	}
-
-	var bulletproofTiresCheckbox = document.getElementsByName("bulletproof_tires");
-	if (bulletproofTiresCheckbox[0].checked) {
-		buy += 5000;
-		sell += 7000;
-	}
-
-	var vehicleHoodCheckbox = document.getElementsByName("vehicle_hood");
-	if (vehicleHoodCheckbox[0].checked) {
-		buy += 500;
-		sell += 700;
-	}
-
-	var vehicleHoodCheckbox = document.getElementsByName("vehicle_hood2");
-	if (vehicleHoodCheckbox[0].checked) {
-		buy += 500;
-		sell += 700;
-	}
-
-	var vehicleRoofCheckbox = document.getElementsByName("vehicle_roof");
-	if (vehicleRoofCheckbox[0].checked) {
-		buy += 500;
-		sell += 700;
-	}
-
-	var vehicleRoofCheckbox = document.getElementsByName("vehicle_roof2");
-	if (vehicleRoofCheckbox[0].checked) {
-		buy += 500;
-		sell += 700;
-	}
-
-	var vehicleSpoilerCheckbox = document.getElementsByName("vehicle_spoiler");
-	if (vehicleSpoilerCheckbox[0].checked) {
-		buy += 500;
-		sell += 700;
-	}
-
-	var vehicleFrontBumperCheckbox = document.getElementsByName("vehicle_front_bumper");
-	if (vehicleFrontBumperCheckbox[0].checked) {
-		buy += 500;
-		sell += 700;
-	}
-
-	var vehicleRearBumperCheckbox = document.getElementsByName("vehicle_rear_bumper");
-	if (vehicleRearBumperCheckbox[0].checked) {
-		buy += 500;
-		sell += 700;
-	}
-
-	var vehicleRearBumperCheckbox = document.getElementsByName("vehicle_bumper");
-	if (vehicleRearBumperCheckbox[0].checked) {
-		buy += 500;
-		sell += 700;
-	}
-
-	var vehicleSkirtCheckbox = document.getElementsByName("vehicle_skirt");
-	if (vehicleSkirtCheckbox[0].checked) {
-		buy += 500;
-		sell += 700;
-	}
-
-	var vehicleSkirtCheckbox = document.getElementsByName("vehicle_skirt2");
-	if (vehicleSkirtCheckbox[0].checked) {
-		buy += 500;
-		sell += 700;
-	}
-
-	var vehicleExhaustCheckbox = document.getElementsByName("vehicle_exhaust");
-	if (vehicleExhaustCheckbox[0].checked) {
-		buy += 500;
-		sell += 700;
-	}
-
-	var seatCosmeticsCheckbox = document.getElementsByName("seat_cosmetics");
-	if (seatCosmeticsCheckbox[0].checked) {
-		buy += 500;
-		sell += 700;
-	}
-
-	var liveryRollCheckbox = document.getElementsByName("livery_roll");
-	if (liveryRollCheckbox[0].checked) {
-		buy += 500;
-		sell += 700;
-	}
-
-	var driftSmokeTiresCheckbox = document.getElementsByName("drift_smoke_tires");
-	if (driftSmokeTiresCheckbox[0].checked) {
-		buy += 500;
-		sell += 700;
-	}
-
-	var customVehicleHornCheckbox = document.getElementsByName("custom_vehicle_horn");
-	if (customVehicleHornCheckbox[0].checked) {
-		buy += 500;
-		sell += 700;
-	}
-
-	var internalCosmeticCheckbox = document.getElementsByName("internal_cosmetic");
-	if (internalCosmeticCheckbox[0].checked) {
-		buy += 500;
-		sell += 700;
-	}
-
-	var internalCosmeticCheckbox = document.getElementsByName("internal_cosmetic2");
-	if (internalCosmeticCheckbox[0].checked) {
-		buy += 500;
-		sell += 700;
-	}
-
-	var externalCosmeticCheckbox = document.getElementsByName("external_cosmetic");
-	if (externalCosmeticCheckbox[0].checked) {
-		buy += 500;
-		sell += 700;
-	}
-
-	var externalCosmeticCheckbox = document.getElementsByName("external_cosmetic2");
-	if (externalCosmeticCheckbox[0].checked) {
-		buy += 500;
-		sell += 700;
-	}
-
-	var customizedPlateCheckbox = document.getElementsByName("customized_plate");
-	if (customizedPlateCheckbox[0].checked) {
-		buy += 5000;
-		sell += 7000;
-	}
-
-	var customizedPlateCheckbox = document.getElementsByName("customized_plate2");
-	if (customizedPlateCheckbox[0].checked) {
-		buy += 5000;
-		sell += 7000;
-	}
-
-	var xenonHeadlightsCheckbox = document.getElementsByName("xenon_headlights");
-	if (xenonHeadlightsCheckbox[0].checked) {
-		buy += 500;
-		sell += 700;
-	}
-
-	var customWheelRimsCheckbox = document.getElementsByName("custom_wheel_rims");
-	if (customWheelRimsCheckbox[0].checked) {
-		buy += 2500;
-		sell += 3500;
-	}
-
-	var rollCageCheckbox = document.getElementsByName("roll_cage");
-	if (rollCageCheckbox[0].checked) {
-		buy += 1000;
-		sell += 1400;
-	}
-
-	var nosColourInjectorCheckbox = document.getElementsByName("nos_colour_injector");
-	if (nosColourInjectorCheckbox[0].checked) {
-		buy += 4000;
-		sell += 4800;
-	}
-
-	var performancepackageupgradeCheckbox = document.getElementsByName("performance_package_upgrade");
-	if (performancepackageupgradeCheckbox[0].checked) {
-		buy += 12500;
-		sell += 15000;
-	}
-
-  
 
 labour = sell - buy;
     document.getElementById("buyPrice").textContent = buy.toFixed(2);
     document.getElementById("sellPrice").textContent = sell.toFixed(2);
     document.getElementById("labourPrice").textContent = labour.toFixed(2);
 }
+
+
 </script>
+
 
 </body>
 </html>
