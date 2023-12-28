@@ -411,7 +411,7 @@ labour = sell - buy;
                     priceSpan.textContent = ` - £${priceData.sellPrice}`;
 
                     checkbox.addEventListener('change', () => {
-                        const price = checkbox.checked ? priceData.sellPrice : priceData.buyPrice;
+                        const price = checkbox.checked ? priceData.sellPrice : priceData.sellPrice;
                         priceSpan.textContent = ` - £${price}`;
                         // You can perform further actions with the price here
                     });
