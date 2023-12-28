@@ -67,13 +67,13 @@
     <label><input type="checkbox" name="tier1_brakes"> Tier 1 Brakes<span class="price"></span></label><br>
     <label><input type="checkbox" name="tier2_brakes"> Tier 2 Brakes<span class="price"></span></label><br>
     <label><input type="checkbox" name="tier3_brakes"> Tier 3 Brakes<span class="price"></span></label><br>
-    <label><input type="checkbox" name="vehicle_armor"> Vehicle Armor<span class="price"></span></label><br>
     <label><input type="checkbox" name="tier1_suspension"> Tier 1 Suspension<span class="price"></span></label><br>
     <label><input type="checkbox" name="tier2_suspension"> Tier 2 Suspension<span class="price"></span></label><br>
     <label><input type="checkbox" name="tier3_suspension"> Tier 3 Suspension<span class="price"></span></label><br>
     <label><input type="checkbox" name="tier4_suspension"> Tier 4 Suspension<span class="price"></span></label><br>
     <label><input type="checkbox" name="tier5_suspension"> Tier 5 Suspension<span class="price"></span></label><br>
     <label><input type="checkbox" name="bulletproof_tires"> Bulletproof Tires<span class="price"></span></label><br>
+    <label><input type="checkbox" name="vehicle_armor"> Vehicle Armor<span class="price"></span></label><br>
     <label><input type="checkbox" name="nos_bottle"> Nos Bottle<span class="price"></span></label><br>
 	<br>
 	
@@ -84,7 +84,7 @@
 
     <button type="button" onclick="calculateTotal()">Calculate Total</button>
     </div>
-   <div id="cosmeticColumn">
+   <div id="mechanicColumn">
     <label> <b>COSMETIC</b></label><br>
 	
     <label><input type="checkbox" name="vehicle_hood"> Vehicle Hood 1<span class="price"></span></label><br>
@@ -115,14 +115,14 @@
 	<br>
 	<br>
 	<br>
-    <label><input type="checkbox" name="performance_package_upgrade"><b>Performance Package Upgrade - £18000</b></label><br>
+    <label><input type="checkbox" name="performance_package_upgrade"><b>Performance Package Upgrade - £32000</b></label><br>
     <label> &emsp;&nbsp;Turbo</label><br>
     <label> &emsp;&nbsp;Tier 4 Engine</label><br>
     <label> &emsp;&nbsp;Tier 3 Transmission</label><br>
     <label> &emsp;&nbsp;Tier 3 Brakes</label><br>
 	<br>
 	<br>
-    <label><input type="checkbox" name="max_package_upgrade"><b>Max Package Upgrade - £30000</b></label><br>
+    <label><input type="checkbox" name="max_package_upgrade"><b>Max Package Upgrade - £68000</b></label><br>
     <label> &emsp;&nbsp;Turbo</label><br>
     <label> &emsp;&nbsp;Tier 4 Engine</label><br>
     <label> &emsp;&nbsp;Tier 3 Transmission</label><br>
@@ -205,22 +205,23 @@
         var enginerepairamount = parseFloat(document.getElementById("enginerepairamount").value) || 0;
         var bodyrepairamount = parseFloat(document.getElementById("bodyrepairamount").value) || 0;
         
-        var enginecost = enginerepairamount * 25;
-        var bodycost = bodyrepairamount * 25;
+        var enginecost = enginerepairamount * 30;
+        var bodycost = bodyrepairamount * 30;
         
         var newrepaircost = enginecost + bodycost;
-        var totalrepaircost = (newrepaircost < 400) ? 400 : newrepaircost;
+        var totalrepaircost = (newrepaircost < 500) ? 500 : newrepaircost;
 
         document.getElementById("totalrepaircost").textContent = totalrepaircost.toFixed(2);
     }
 </script>
 
 <script>
-function calculateTotal() {
-    var buy = 0;
-    var sell = 0;
-    var labour = 0;	
-	 var selectedParts = []; // Array to store selected parts
+ function calculateTotal() {
+        var buy = 0;
+        var sell = 0;
+        var labour = 0;
+        var selectedParts = [];
+
 
 // Define a function to handle checkboxes for a specific upgrade type
 function handleUpgradeCheckboxes(upgrades) {
@@ -235,76 +236,6 @@ function handleUpgradeCheckboxes(upgrades) {
         }
     }
 }
-
-// Define an array of upgrades with name, buy price, and sell price
-const upgrades = [
-    { name: "spray1", buyPrice: 500, sellPrice: 1000 },
-    { name: "spray2", buyPrice: 500, sellPrice: 1000 },
-    { name: "spray3", buyPrice: 500, sellPrice: 1000 },
-    { name: "spray4", buyPrice: 500, sellPrice: 1000 },
-    { name: "spray5", buyPrice: 500, sellPrice: 1000 },
-    { name: "spray6", buyPrice: 500, sellPrice: 1000 },
-    { name: "spray7", buyPrice: 500, sellPrice: 1000 },
-    { name: "tints", buyPrice: 750, sellPrice: 1500 },
-    { name: "neons", buyPrice: 550, sellPrice: 1000 },
-    { name: "tyre1", buyPrice: 50, sellPrice: 100 },
-    { name: "tyre2", buyPrice: 50, sellPrice: 100 },
-    { name: "tyre3", buyPrice: 50, sellPrice: 100 },
-    { name: "tyre4", buyPrice: 50, sellPrice: 100 },
-    { name: "axleparts", buyPrice: 50, sellPrice: 100 },
-    { name: "carbattery", buyPrice: 50, sellPrice: 100 },
-    { name: "sparkplugs", buyPrice: 50, sellPrice: 100 },
-    { name: "caroil", buyPrice: 50, sellPrice: 100 },
-    { name: "vehicle_hood", buyPrice: 500, sellPrice: 900 },
-    { name: "vehicle_hood2", buyPrice: 500, sellPrice: 900 },
-    { name: "vehicle_roof", buyPrice: 500, sellPrice: 900 },
-    { name: "vehicle_roof2", buyPrice: 500, sellPrice: 900 },
-    { name: "vehicle_spoiler", buyPrice: 500, sellPrice: 900 },
-    { name: "vehicle_front_bumper", buyPrice: 500, sellPrice: 900 },
-    { name: "vehicle_rear_bumper", buyPrice: 500, sellPrice: 900 },
-    { name: "vehicle_grill", buyPrice: 500, sellPrice: 900 },
-    { name: "vehicle_skirt", buyPrice: 500, sellPrice: 900 },
-    { name: "vehicle_skirt2", buyPrice: 500, sellPrice: 900 },
-    { name: "vehicle_exhaust", buyPrice: 500, sellPrice: 900 },
-    { name: "seat_cosmetics", buyPrice: 500, sellPrice: 900 },
-    { name: "livery_roll", buyPrice: 500, sellPrice: 900 },
-    { name: "drift_smoke_tires", buyPrice: 500, sellPrice: 900 },
-    { name: "custom_vehicle_horn", buyPrice: 500, sellPrice: 900 },
-    { name: "internal_cosmetic", buyPrice: 500, sellPrice: 900 },
-    { name: "internal_cosmetic2", buyPrice: 500, sellPrice: 900 },
-    { name: "external_cosmetic", buyPrice: 500, sellPrice: 900 },
-    { name: "external_cosmetic2", buyPrice: 500, sellPrice: 900 },
-    { name: "customized_plate", buyPrice: 5000, sellPrice: 7000 },
-    { name: "customized_plate2", buyPrice: 5000, sellPrice: 7000 },
-    { name: "xenon_headlights", buyPrice: 500, sellPrice: 900 },
-    { name: "custom_wheel_rims", buyPrice: 2500, sellPrice: 4500 },
-    { name: "roll_cage", buyPrice: 1000, sellPrice: 1600 },
-    { name: "nos_colour_injector", buyPrice: 500, sellPrice: 900 },
-    { name: "performance_package_upgrade", buyPrice: 12500, sellPrice: 18000 },
-    { name: "max_package_upgrade", buyPrice: 23000, sellPrice: 30000 },
-	{ name: "turbo", buyPrice: 7500, sellPrice: 10000 },
-	{ name: "tier1_engine", buyPrice: 2000, sellPrice: 3500 },
-    { name: "tier2_engine", buyPrice: 4000, sellPrice: 5500 },
-    { name: "tier3_engine", buyPrice: 6500, sellPrice: 8500 },
-    { name: "tier4_engine", buyPrice: 8000, sellPrice: 10000 },
-    { name: "tier5_engine", buyPrice: 10000, sellPrice: 12000 },
-    { name: "tier1_transmission", buyPrice: 2000, sellPrice: 3500 },
-    { name: "tier2_transmission", buyPrice: 4000, sellPrice: 5500 },
-    { name: "tier3_transmission", buyPrice: 6000, sellPrice: 8500 },
-    { name: "tier4_transmission", buyPrice: 8000, sellPrice: 10000 },
-    { name: "tier1_brakes", buyPrice: 2000, sellPrice: 3500 },
-    { name: "tier2_brakes", buyPrice: 4500, sellPrice: 5500 },
-    { name: "tier3_brakes", buyPrice: 6000, sellPrice: 8500 },
-    { name: "vehicle_armor", buyPrice: 5500, sellPrice: 8000 },
-    { name: "tier1_suspension", buyPrice: 1000, sellPrice: 2000 },
-    { name: "tier2_suspension", buyPrice: 1200, sellPrice: 2200 },
-    { name: "tier3_suspension", buyPrice: 1400, sellPrice: 2400 },
-    { name: "tier4_suspension", buyPrice: 1600, sellPrice: 2600 },
-    { name: "tier5_suspension", buyPrice: 1800, sellPrice: 2800 },
-    { name: "bulletproof_tires", buyPrice: 10000, sellPrice: 13000 },
-    { name: "nos_bottle", buyPrice: 15000, sellPrice: 18000 },
-];
-
 // Call the function with the array of upgrades
 handleUpgradeCheckboxes(upgrades);
 const displayNames = {
@@ -436,8 +367,8 @@ labour = sell - buy;
     { name: "custom_wheel_rims", buyPrice: 2500, sellPrice: 4500 },
     { name: "roll_cage", buyPrice: 1000, sellPrice: 1600 },
     { name: "nos_colour_injector", buyPrice: 500, sellPrice: 900 },
-    { name: "performance_package_upgrade", buyPrice: 12500, sellPrice: 18000 },
-    { name: "max_package_upgrade", buyPrice: 23000, sellPrice: 30000 },
+    { name: "performance_package_upgrade", buyPrice: 27500, sellPrice: 32000 },
+    { name: "max_package_upgrade", buyPrice: 59600, sellPrice: 70000 },
 	{ name: "turbo", buyPrice: 7500, sellPrice: 10000 },
 	{ name: "tier1_engine", buyPrice: 2000, sellPrice: 3500 },
     { name: "tier2_engine", buyPrice: 4000, sellPrice: 5500 },
