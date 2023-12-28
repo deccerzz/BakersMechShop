@@ -1,9 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BAKERS MECH SHOP PRICE LIST</title>
 </head>
 <body>
 <h2>BAKERS MECH SHOP PRICE LIST</h2>
@@ -53,6 +49,37 @@
     <label><input type="checkbox" name="sparkplugs"> Spark Plugs<span class="price"></span></label><br>
     <label><input type="checkbox" name="caroil"> Car Oil<span class="price"></span></label><br>
 	<br>
+	<br>
+	<br>
+	 <label><input type="checkbox" name="performance_package_1"><b>Street Performance Package<span class="price"></span></b></label><br>
+    <label> &emsp;&nbsp;Tier 1 Engine</label><br>
+    <label> &emsp;&nbsp;Tier 1 Transmission</label><br>
+    <label> &emsp;&nbsp;Tier 1 Brakes</label><br>
+	<br>
+	 <label><input type="checkbox" name="performance_package_2"><b>Track Performance Package<span class="price"></span></b></label><br>
+    <label> &emsp;&nbsp;Turbo</label><br>
+    <label> &emsp;&nbsp;Tier 2 Engine</label><br>
+    <label> &emsp;&nbsp;Tier 2 Transmission</label><br>
+    <label> &emsp;&nbsp;Tier 2 Brakes</label><br>
+	<br>
+	 <label><input type="checkbox" name="performance_package_3"><b>Race Performance Package<span class="price"></span></b></label><br>
+    <label> &emsp;&nbsp;Turbo</label><br>
+    <label> &emsp;&nbsp;Tier 4 Engine</label><br>
+    <label> &emsp;&nbsp;Tier 3 Transmission</label><br>
+    <label> &emsp;&nbsp;Tier 3 Brakes</label><br>
+	<br>
+    <label><input type="checkbox" name="max_package_upgrade"><b>Max Package Upgrade<span class="price"></span></b></label><br>
+    <label> &emsp;&nbsp;Turbo</label><br>
+    <label> &emsp;&nbsp;Tier 4 Engine</label><br>
+    <label> &emsp;&nbsp;Tier 3 Transmission</label><br>
+    <label> &emsp;&nbsp;Tier 3 Brakes</label><br>
+    <label> &emsp;&nbsp;Tier 4 Suspension</label><br>
+    <label> &emsp;&nbsp;Nos Bottle</label><br>
+    <label> &emsp;&nbsp;Bulletproof Tires</label><br>
+    <label> &emsp;&nbsp;Vehicle Armor</label><br>
+
+    </div>
+<div id="mechanicColumn">
     <label> <b>PERFORMANCE</b></label><br>
     <label><input type="checkbox" name="turbo"> Turbo<span class="price"></span></label><br>
     <label><input type="checkbox" name="tier1_engine"> Tier 1 Engine<span class="price"></span></label><br>
@@ -78,11 +105,6 @@
 	<br>
 	
 	
-    <p>Sell Price - TOTAL: £<span id="sellPrice">0.00</span></p>
-    <p>Buy Price - CASH BEFORE: £<span id="buyPrice">0.00</span></p>
-    <p>Buy Price - LABOUR AFTER - TILL: £<span id="labourPrice">0.00</span></p>
-
-    <button type="button" onclick="calculateTotal()">Calculate Total</button>
     </div>
    <div id="mechanicColumn">
     <label> <b>COSMETIC</b></label><br>
@@ -115,49 +137,29 @@
 	<br>
 	<br>
 	<br>
-    <label><input type="checkbox" name="performance_package_upgrade"><b>Performance Package Upgrade - £32000</b></label><br>
-    <label> &emsp;&nbsp;Turbo</label><br>
-    <label> &emsp;&nbsp;Tier 4 Engine</label><br>
-    <label> &emsp;&nbsp;Tier 3 Transmission</label><br>
-    <label> &emsp;&nbsp;Tier 3 Brakes</label><br>
-	<br>
-	<br>
-    <label><input type="checkbox" name="max_package_upgrade"><b>Max Package Upgrade - £68000</b></label><br>
-    <label> &emsp;&nbsp;Turbo</label><br>
-    <label> &emsp;&nbsp;Tier 4 Engine</label><br>
-    <label> &emsp;&nbsp;Tier 3 Transmission</label><br>
-    <label> &emsp;&nbsp;Tier 3 Brakes</label><br>
-    <label> &emsp;&nbsp;Tier 4 Suspension</label><br>
-    <label> &emsp;&nbsp;Nos Bottle</label><br>
-    <label> &emsp;&nbsp;Bulletproof Tires</label><br>
-    <label> &emsp;&nbsp;Vehicle Armor</label><br>
-	<br>
-	<br>
-	<br>
-	<br>
+   
 	
 	<label for="repair">Repair - Engine Damage Cost:</label>
             <input type="number" id="enginerepairamount" name="enginerepairamounttotal" value="0"><br>
 	<label for="repair">Repair - Body Damage Cost:</label>
             <input type="number" id="bodyrepairamount" name="bodyrepairamounttotal" value="0"><br>
             <button type="button" onclick="calculateMaterialTotal()">Calculate Repair</button>
-<br>
 
             
-			
+	
     <p>Total Repair Cost: £<span id="totalrepaircost">0.00</span></p>
 
-	<label for="moneywash">Money To Wash:</label>
-<input type="number" id="moneywash" name="moneywash" value="0"><br>
-
-<button type="button" onclick="calculatemoneywashtotal()">Calculate Money Wash</button>
-
-<p>Instant: £<span id="instantcash">0.00</span> <span id="instantcashpercentage">0</span>%</p>
-<p>24 Hours: £<span id="24hourcash">0.00</span> <span id="24hourcashpercentage">0</span>%</p>
-<p>48 Hours: £<span id="48hourcash">0.00</span> <span id="48hourcashpercentage">0</span>%</p>
-<p>We Get: £<span id="wegetcash">0.00</span> <span id="wegetcashpercentage">0</span>%</p>
     </div>
-	 <div id="partsColumn">
+	 <div id="priceDisplay">
+	 
+    <p>Sell Price - TOTAL: £<span id="sellPrice">0.00</span></p>
+    <p>Buy Price - CASH BEFORE: £<span id="buyPrice">0.00</span></p>
+    <p>Buy Price - LABOUR AFTER - TILL: £<span id="labourPrice">0.00</span></p>
+    <button type="button" onclick="calculateTotal()">Calculate Total</button>
+	
+<br>
+<br>
+<br>
     <label> <b>Parts To Fit</b> </label><br>
 	<ul id="selectedPartsList"></ul>
         </div>
@@ -281,7 +283,9 @@ const displayNames = {
     custom_wheel_rims: "Custom Wheel Rims",
     roll_cage: "Roll Cage",
     nos_colour_injector: "NOS Colour Injector",
-    performance_package_upgrade: "Performance Package Upgrade",
+    performance_package_1: "Street Performance Package",
+    performance_package_2: "Track Performance Package",
+    performance_package_3: "Race Performance Package",
     max_package_upgrade: "Max Package Upgrade",
     turbo: "Turbo",
     tier1_engine: "Tier 1 Engine",
@@ -367,7 +371,9 @@ labour = sell - buy;
     { name: "custom_wheel_rims", buyPrice: 2500, sellPrice: 4500 },
     { name: "roll_cage", buyPrice: 1000, sellPrice: 1600 },
     { name: "nos_colour_injector", buyPrice: 500, sellPrice: 900 },
-    { name: "performance_package_upgrade", buyPrice: 27500, sellPrice: 32000 },
+    { name: "performance_package_1", buyPrice: 6000, sellPrice: 8500 },
+    { name: "performance_package_2", buyPrice: 20000, sellPrice: 22500 },
+    { name: "performance_package_3", buyPrice: 27500, sellPrice: 32500 },
     { name: "max_package_upgrade", buyPrice: 59600, sellPrice: 70000 },
 	{ name: "turbo", buyPrice: 7500, sellPrice: 10000 },
 	{ name: "tier1_engine", buyPrice: 2000, sellPrice: 3500 },
