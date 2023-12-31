@@ -30,7 +30,7 @@
 <form id="priceForm">
 <div id="mechanicColumn">
     <label> <b>BASIC MECHANIC</b></label><br>
-    <label><input type="checkbox" name="spray1"> Respray Primary<span class="price"></span></label><br>	
+	<label><input type="checkbox" name="spray1"> Respray Primary<span class="price"></span></label><br>
     <label><input type="checkbox" name="spray2"> Respray Secondary<span class="price"></span></label><br>
     <label><input type="checkbox" name="spray3"> Respray Pearlescent<span class="price"></span></label><br>
     <label><input type="checkbox" name="spray4"> Respray Wheels<span class="price"></span></label><br>
@@ -154,6 +154,7 @@
     <p>Sell Price - TOTAL: £<span id="sellPrice">0.00</span></p>
     <p>Buy Price - CASH BEFORE: £<span id="buyPrice">0.00</span></p>
     <p>Buy Price - LABOUR AFTER - TILL: £<span id="labourPrice">0.00</span></p>
+    <p>Multibuy Discount: £<span id="cosmeticDiscount">0.00</span></p>
     <button type="button" onclick="calculateTotal()">Calculate Total</button>
 	
 <br>
@@ -222,6 +223,8 @@
         var sell = 0;
         var labour = 0;
         var selectedParts = [];
+		var cosmeticDiscount = 0;
+		var discountPercentage = 0;
 
 
 // Define a function to handle checkboxes for a specific upgrade type
@@ -320,12 +323,61 @@ for (const part of selectedParts) {
     listItem.textContent = displayName;
     selectedPartsList.appendChild(listItem);
 }
+ var selectedCosmeticOptions = selectedParts.filter(part => {
+        return (
+            part.includes("vehicle_hood") ||
+            part.includes("vehicle_hood2") ||
+            part.includes("vehicle_roof") ||
+            part.includes("vehicle_roof2") ||
+            part.includes("vehicle_spoiler") ||
+            part.includes("vehicle_front_bumper") ||
+            part.includes("vehicle_rear_bumper") ||
+            part.includes("vehicle_grill_bumper") ||
+            part.includes("vehicle_skirt") ||
+            part.includes("vehicle_skirt2") ||
+            part.includes("vehicle_exhaust") ||
+            part.includes("seat_cosmetics") ||
+            part.includes("livery_roll") ||
+            part.includes("drift_smoke_tires") ||
+            part.includes("custom_vehicle_horn") ||
+            part.includes("internal_cosmetic") ||
+            part.includes("internal_cosmetic2") ||
+            part.includes("external_cosmetic") ||
+            part.includes("external_cosmetic2") ||
+            part.includes("xenon_headlights") ||
+            part.includes("spray1") ||
+            part.includes("spray2") ||
+            part.includes("spray3") ||
+            part.includes("spray4") ||
+            part.includes("spray5") ||
+            part.includes("spray6") ||
+            part.includes("tints")  ||
+            part.includes("neons") 
+        );
+    });
 
-
+     if (selectedCosmeticOptions.length >= 3) {
+        // Apply a 15% discount if 5 or more cosmetic options are selected
+        discountPercentage = 0.10;
+		
+    } else if (selectedCosmeticOptions.length >= 3) {
+        // Apply a 10% discount if 4 cosmetic options are selected
+        discountPercentage = 0.15;
+    }
+     else if (selectedCosmeticOptions.length >= 5) {
+        // Apply a 10% discount if 4 cosmetic options are selected
+        discountPercentage = 0.20;
+    }
+    
+cosmeticDiscount = sell * discountPercentage;
+    sell -= cosmeticDiscount;
+	
 labour = sell - buy;
     document.getElementById("buyPrice").textContent = buy.toFixed(2);
     document.getElementById("sellPrice").textContent = sell.toFixed(2);
     document.getElementById("labourPrice").textContent = labour.toFixed(2);
+    document.getElementById("cosmeticDiscount").textContent = cosmeticDiscount.toFixed(2);
+
 }
  const upgrades = [
     { name: "spray1", buyPrice: 500, sellPrice: 800 },
