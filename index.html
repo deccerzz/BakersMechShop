@@ -207,8 +207,8 @@
         var enginerepairamount = parseFloat(document.getElementById("enginerepairamount").value) || 0;
         var bodyrepairamount = parseFloat(document.getElementById("bodyrepairamount").value) || 0;
         
-        var enginecost = enginerepairamount * 25;
-        var bodycost = bodyrepairamount * 25;
+        var enginecost = enginerepairamount * 20;
+        var bodycost = bodyrepairamount * 20;
         
         var newrepaircost = enginecost + bodycost;
         var totalrepaircost = (newrepaircost < 450) ? 450 : newrepaircost;
