@@ -160,8 +160,8 @@
     <p>Multibuy Discount: £<span id="cosmeticDiscount">0.00</span></p>
     <button type="button" onclick="calculateTotal()">Calculate Total</button>
 	
-<br>
-<br>
+    <p>*Repair Cost Included In Prices Above</p>
+	
 <br>
     <label> <b>Parts To Fit</b> </label><br>
 	<ul id="selectedPartsList"></ul>
@@ -195,6 +195,12 @@ function calculateTotal() {
     var selectedParts = [];
     var cosmeticDiscount = 0;
     var discountPercentage = 0;
+	
+	    var totalRepairCostElement = parseFloat(document.getElementById("totalrepaircost").textContent) || 0;
+
+    sell += totalRepairCostElement;
+
+
 
     // Define a function to handle checkboxes for a specific upgrade type
     function handleUpgradeCheckboxes(upgrades) {
