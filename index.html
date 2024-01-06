@@ -173,39 +173,6 @@
 </form>
 
 <script>
-    function calculatemoneywashtotal() {
-        var moneyToWash = parseFloat(document.getElementById("moneywash").value) || 0;
-        var baseAmount = 20001; // Base amount for comparison
-
-        var instantLossPercentage = (moneyToWash < baseAmount) ? 0.35 : 0.30;
-        var _24hourLossPercentage = (moneyToWash < baseAmount) ? 0.20 : 0.15;
-        var _48hourLossPercentage = (moneyToWash < baseAmount) ? 0.10 : 0.05;
-        var _WeGetPercentage = (moneyToWash < baseAmount) ? 0.10 : 0.05;
-
-        var instantCash = moneyToWash - (moneyToWash * instantLossPercentage);
-        var _24hourCash = moneyToWash - (moneyToWash * _24hourLossPercentage);
-        var _48hourCash = moneyToWash - (moneyToWash * _48hourLossPercentage);
-        var weGetCash = moneyToWash * _WeGetPercentage;
-
-        // Displaying the result
-        document.getElementById("instantcash").textContent = instantCash.toFixed(0);
-        document.getElementById("24hourcash").textContent = _24hourCash.toFixed(0);
-        document.getElementById("48hourcash").textContent = _48hourCash.toFixed(0);
-        document.getElementById("wegetcash").textContent = weGetCash.toFixed(0);
-		
-		var percentinstant = instantLossPercentage * 100;
-		var percent24hour = _24hourLossPercentage * 100;
-		var percent48hour = _48hourLossPercentage * 100;
-		var percentwetake = _WeGetPercentage * 100;
-		
-        document.getElementById("instantcashpercentage").textContent = percentinstant.toFixed(0);
-        document.getElementById("24hourcashpercentage").textContent = percent24hour.toFixed(0);
-        document.getElementById("48hourcashpercentage").textContent = percent48hour.toFixed(0);
-        document.getElementById("wegetcashpercentage").textContent = percentwetake.toFixed(0);
-    }
-</script>
-
-<script>
     function calculateMaterialTotal() {
         var enginerepairamount = parseFloat(document.getElementById("enginerepairamount").value) || 0;
         var bodyrepairamount = parseFloat(document.getElementById("bodyrepairamount").value) || 0;
@@ -221,30 +188,27 @@
 </script>
 
 <script>
- function calculateTotal() {
-        var buy = 0;
-        var sell = 0;
-        var labour = 0;
-        var selectedParts = [];
-		var cosmeticDiscount = 0;
-		var discountPercentage = 0;
+function calculateTotal() {
+    var buy = 0;
+    var sell = 0;
+    var labour = 0;
+    var selectedParts = [];
+    var cosmeticDiscount = 0;
+    var discountPercentage = 0;
 
-
-// Define a function to handle checkboxes for a specific upgrade type
-function handleUpgradeCheckboxes(upgrades) {
-    for (const upgrade of upgrades) {
-        const checkboxes = document.getElementsByName(upgrade.name);
-        if (checkboxes[0].checked) {
-            buy += upgrade.buyPrice;
-            sell += upgrade.sellPrice;
-			                selectedParts.push(upgrade.name); // Add the selected part to the array
-
-
+    // Define a function to handle checkboxes for a specific upgrade type
+    function handleUpgradeCheckboxes(upgrades) {
+        for (const upgrade of upgrades) {
+            const checkboxes = document.getElementsByName(upgrade.name);
+            if (checkboxes[0].checked) {
+                buy += upgrade.buyPrice;
+                sell += upgrade.sellPrice;
+                selectedParts.push(upgrade.name); // Add the selected part to the array
+            }
         }
     }
-}
 // Call the function with the array of upgrades
-handleUpgradeCheckboxes(upgrades);
+    handleUpgradeCheckboxes(upgrades);
 const displayNames = {
     spray1: "Respray Primary",
     spray2: "Respray Secondary",
@@ -326,56 +290,46 @@ for (const part of selectedParts) {
     listItem.textContent = displayName;
     selectedPartsList.appendChild(listItem);
 }
- var selectedCosmeticOptions = selectedParts.filter(part => {
-        return (
-            part.includes("vehicle_hood") ||
-            part.includes("vehicle_hood2") ||
-            part.includes("vehicle_roof") ||
-            part.includes("vehicle_roof2") ||
-            part.includes("vehicle_spoiler") ||
-            part.includes("vehicle_front_bumper") ||
-            part.includes("vehicle_rear_bumper") ||
-            part.includes("vehicle_grill_bumper") ||
-            part.includes("vehicle_skirt") ||
-            part.includes("vehicle_skirt2") ||
-            part.includes("vehicle_exhaust") ||
-            part.includes("seat_cosmetics") ||
-            part.includes("livery_roll") ||
-            part.includes("drift_smoke_tires") ||
-            part.includes("custom_vehicle_horn") ||
-            part.includes("internal_cosmetic") ||
-            part.includes("internal_cosmetic2") ||
-            part.includes("external_cosmetic") ||
-            part.includes("external_cosmetic2") ||
-            part.includes("xenon_headlights") ||
-            part.includes("spray1") ||
-            part.includes("spray2") ||
-            part.includes("spray3") ||
-            part.includes("spray4") ||
-            part.includes("spray5") ||
-            part.includes("spray6") ||
-            part.includes("tints")  ||
-            part.includes("neons") 
-        );
-    });
 
-     if (selectedCosmeticOptions.length >= 3) {
-        // Apply a 15% discount if 5 or more cosmetic options are selected
-        discountPercentage = 0.10;
-		
-    } else if (selectedCosmeticOptions.length >= 3) {
-        // Apply a 10% discount if 4 cosmetic options are selected
-        discountPercentage = 0.15;
+var cosmeticOptions = [
+    "vehicle_hood", "vehicle_hood2", "vehicle_roof", "vehicle_roof2", "vehicle_spoiler",
+    "vehicle_front_bumper", "vehicle_rear_bumper", "vehicle_grill", "vehicle_skirt", "vehicle_skirt2",
+    "vehicle_exhaust", "seat_cosmetics", "livery_roll", "drift_smoke_tires", "custom_vehicle_horn",
+    "internal_cosmetic", "internal_cosmetic2", "external_cosmetic", "external_cosmetic2", "xenon_headlights",
+    "spray1", "spray2", "spray3", "spray4", "spray5", "spray6", "tints", "neons"
+];
+
+var selectedCosmeticOptions = selectedParts.filter(part => cosmeticOptions.includes(part));
+
+var cosmeticCost = 0;
+for (const part of selectedCosmeticOptions) {
+    var priceData = upgrades.find(item => item.name === part);
+    if (priceData) {
+        cosmeticCost += priceData.sellPrice;
     }
-     else if (selectedCosmeticOptions.length >= 5) {
-        // Apply a 10% discount if 4 cosmetic options are selected
-        discountPercentage = 0.20;
-    }
-    
-cosmeticDiscount = sell * discountPercentage;
-    sell -= cosmeticDiscount;
-	
-labour = sell - buy;
+}
+
+var cosmeticDiscount = 0;
+
+if (selectedCosmeticOptions.length >= 5) {
+    // Apply a 20% discount if 5 or more cosmetic options are selected
+    discountPercentage = 0.20;
+} else if (selectedCosmeticOptions.length === 4) {
+    // Apply a 15% discount if 4 cosmetic options are selected
+    discountPercentage = 0.15;
+} else if (selectedCosmeticOptions.length === 3) {
+    // Apply a 10% discount if 3 cosmetic options are selected
+    discountPercentage = 0.10;
+} else {
+    // No discount for fewer than 3 cosmetic options
+    discountPercentage = 0;
+}
+
+cosmeticDiscount = cosmeticCost * discountPercentage; // Apply discount only to the cosmetic cost
+sell -= cosmeticDiscount;
+
+	    labour = sell - buy;
+
     document.getElementById("buyPrice").textContent = buy.toFixed(2);
     document.getElementById("sellPrice").textContent = sell.toFixed(2);
     document.getElementById("labourPrice").textContent = labour.toFixed(2);
@@ -452,6 +406,8 @@ labour = sell - buy;
     { name: "nos_bottle", buyPrice: 15000, sellPrice: 18000 },
             // Add other price data here
         ];
+		
+	
 		
 		  function updatePrices() {
             const checkboxes = document.querySelectorAll('#mechanicColumn input[type="checkbox"]');
