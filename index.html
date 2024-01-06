@@ -111,17 +111,19 @@
    <div id="mechanicColumn">
     <label> <b>COSMETIC</b></label><br>
 	
-    <label><input type="checkbox" name="vehicle_hood"> Vehicle Hood 1<span class="price"></span></label><br>
-    <label><input type="checkbox" name="vehicle_hood2"> Vehicle Hood 2<span class="price"></span></label><br>
-    <label><input type="checkbox" name="vehicle_roof"> Vehicle Roof<span class="price"></span></label><br>
-    <label><input type="checkbox" name="vehicle_roof2"> Vehicle Roof 2<span class="price"></span></label><br>
-    <label><input type="checkbox" name="vehicle_spoiler"> Vehicle Spoiler<span class="price"></span></label><br>
-    <label><input type="checkbox" name="vehicle_front_bumper"> Vehicle Front Bumper<span class="price"></span></label><br>
-    <label><input type="checkbox" name="vehicle_rear_bumper"> Vehicle Rear Bumper<span class="price"></span></label><br>
-    <label><input type="checkbox" name="vehicle_grill"> Vehicle Grill(Bumper)<span class="price"></span></label><br>
-    <label><input type="checkbox" name="vehicle_skirt"> Vehicle Skirt 1<span class="price"></span></label><br>
-    <label><input type="checkbox" name="vehicle_skirt2"> Vehicle Skirt 2<span class="price"></span></label><br>
-    <label><input type="checkbox" name="vehicle_exhaust"> Vehicle Exhaust<span class="price"></span></label><br>
+    <label><input type="checkbox" name="vehicle_spoiler"> Spoiler<span class="price"></span></label><br>
+    <label><input type="checkbox" name="vehicle_front_bumper"> Front Bumper<span class="price"></span></label><br>
+    <label><input type="checkbox" name="vehicle_rear_bumper"> Rear Bumper<span class="price"></span></label><br>
+    <label><input type="checkbox" name="vehicle_skirt"> Skirt <span class="price"></span></label><br>
+    <label><input type="checkbox" name="vehicle_exhaust">  Exhaust<span class="price"></span></label><br>
+    <label><input type="checkbox" name="vehicle_grill"> Grill(Bumper)<span class="price"></span></label><br>
+    <label><input type="checkbox" name="vehicle_hood"> Hood 1<span class="price"></span></label><br>
+    <label><input type="checkbox" name="vehicle_hood2"> Hood 2<span class="price"></span></label><br>
+    <label><input type="checkbox" name="vehicle_skirt3"> Left Fender(Skirt)<span class="price"></span></label><br>
+    <label><input type="checkbox" name="vehicle_skirt2"> Right Fender(Skirt)<span class="price"></span></label><br>
+    <label><input type="checkbox" name="vehicle_roof"> Roof<span class="price"></span></label><br>
+    <label><input type="checkbox" name="vehicle_roof2"> Roof 2<span class="price"></span></label><br>
+    <label><input type="checkbox" name="roll_cage"> Roll Cage<span class="price"></span></label><br>
     <label><input type="checkbox" name="seat_cosmetics"> Seat Cosmetics<span class="price"></span></label><br>
     <label><input type="checkbox" name="livery_roll"> Livery Roll<span class="price"></span></label><br>
     <label><input type="checkbox" name="drift_smoke_tires"> Drift Smoke Tires<span class="price"></span></label><br>
@@ -134,7 +136,6 @@
     <label><input type="checkbox" name="customized_plate2"> Customized Plate 2<span class="price"></span></label><br>
     <label><input type="checkbox" name="xenon_headlights"> Xenon Headlights<span class="price"></span></label><br>
     <label><input type="checkbox" name="custom_wheel_rims"> Custom Wheel Rims<span class="price"></span></label><br>
-    <label><input type="checkbox" name="roll_cage"> Roll Cage<span class="price"></span></label><br>
     <label><input type="checkbox" name="nos_colour_injector"> NOS Colour Injector<span class="price"></span></label><br>
 	<br>
 	<br>
@@ -233,17 +234,18 @@ const displayNames = {
     carbattery: "Car Battery",
     sparkplugs: "Spark Plugs",
     caroil: "Car Oil",
-    vehicle_hood: "Vehicle Hood",
-    vehicle_hood2: "Vehicle Hood 2",
-    vehicle_roof: "Vehicle Roof",
-    vehicle_roof2: "Vehicle Roof 2",
-    vehicle_spoiler: "Vehicle Spoiler",
-    vehicle_front_bumper: "Vehicle Front Bumper",
-    vehicle_rear_bumper: "Vehicle Rear Bumper",
-    vehicle_grill: "Vehicle Grill (Bumper)",
-    vehicle_skirt: "Vehicle Skirt",
-    vehicle_skirt2: "Vehicle Skirt 2",
-    vehicle_exhaust: "Vehicle Exhaust",
+    vehicle_hood: "Hood",
+    vehicle_hood2: "Hood 2",
+    vehicle_roof: "Roof",
+    vehicle_roof2: "Roof 2",
+    vehicle_spoiler: "Spoiler",
+    vehicle_front_bumper: "Front Bumper",
+    vehicle_rear_bumper: "Rear Bumper",
+    vehicle_grill: "Grill (Bumper)",
+    vehicle_skirt: "Skirt",
+    vehicle_skirt2: "Left Fender(Skirt)",
+    vehicle_skirt3: "Right Fender(Skirt)",
+    vehicle_exhaust: "Exhaust",
     seat_cosmetics: "Seat Cosmetics",
     livery_roll: "Livery Roll",
     drift_smoke_tires: "Drift Smoke Tires",
@@ -299,7 +301,7 @@ for (const part of selectedParts) {
 
 var cosmeticOptions = [
     "vehicle_hood", "vehicle_hood2", "vehicle_roof", "vehicle_roof2", "vehicle_spoiler",
-    "vehicle_front_bumper", "vehicle_rear_bumper", "vehicle_grill", "vehicle_skirt", "vehicle_skirt2",
+    "vehicle_front_bumper", "vehicle_rear_bumper", "vehicle_grill", "vehicle_skirt", "vehicle_skirt2", "vehicle_skirt3",
     "vehicle_exhaust", "seat_cosmetics", "livery_roll", "drift_smoke_tires", "custom_vehicle_horn",
     "internal_cosmetic", "internal_cosmetic2", "external_cosmetic", "external_cosmetic2", "xenon_headlights",
     "spray1", "spray2", "spray3", "spray4", "spray5", "spray6", "tints", "neons"
@@ -370,6 +372,7 @@ sell -= cosmeticDiscount;
     { name: "vehicle_grill", buyPrice: 500, sellPrice: 900 },
     { name: "vehicle_skirt", buyPrice: 500, sellPrice: 900 },
     { name: "vehicle_skirt2", buyPrice: 500, sellPrice: 900 },
+    { name: "vehicle_skirt3", buyPrice: 500, sellPrice: 900 },
     { name: "vehicle_exhaust", buyPrice: 500, sellPrice: 900 },
     { name: "seat_cosmetics", buyPrice: 500, sellPrice: 900 },
     { name: "livery_roll", buyPrice: 500, sellPrice: 900 },
